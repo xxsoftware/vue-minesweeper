@@ -9,7 +9,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    Block: typeof import('./components/block.vue')['default']
+    Block: typeof import('./components/MineBlock.vue')['default']
+    MineBlock: typeof import('./components/MineBlock.vue')['default']
     README: typeof import('./components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
