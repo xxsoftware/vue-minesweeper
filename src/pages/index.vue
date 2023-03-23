@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { BlockState } from '~/types'
-const WIDTH = 5
-const HEIGHT = 5
+const WIDTH = 10
+const HEIGHT = 10
 const state = ref(
   Array.from({ length: HEIGHT }, (_, y) =>
     Array.from({ length: WIDTH }, (_, x): BlockState => ({
@@ -159,7 +159,7 @@ function getSiblings(block: BlockState) {
         <template v-else-if="item.revealed || dev">
           <div v-if="item.mine" i-mdi-mine />
           <div v-else>
-            {{ item.adjacentMines == 0 ? "" : item.adjacentMines }}
+            {{ item.adjacentMines === 0 ? "" : item.adjacentMines }}
           </div>
         </template>
       </button>
