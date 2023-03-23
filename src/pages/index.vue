@@ -121,10 +121,13 @@ function getSiblings(block: BlockState) {
 
 <template>
   <div>Minesweeper</div>
-  <button @click="toggleDev()">
-    {{ isDev }}
-  </button>
-  <div p5>
+  <div flex justify-center items-center p5>
+    <div @click="toggleDev()">
+      <div v-show="isDev" i-mdi-eye w-8 h-8 />
+      <div v-show="!isDev" i-mdi-eye-off-outline w-8 h-8 />
+    </div>
+  </div>
+  <div>
     <div v-for="(row, y) in state" :key="y" flex items-center justify-center>
       <MineBlock
         v-for="(item, x) in row"

@@ -20,7 +20,7 @@ function getBlockClass(block: BlockState) {
     return 'bg-gray-500/10'
 
   if (!block.revealed)
-    return 'bg-gray-500/10 hover:500/20 '
+    return 'bg-gray-500/40 hover:500/80 '
 
   return block.mine ? 'text-red' : numberColors[block.adjacentMines]
 }
@@ -40,7 +40,7 @@ function getBlockClass(block: BlockState) {
       :class="getBlockClass(item)"
     >
       <template v-if="item.flagged">
-        <div i-mdi-flag />
+        <div i-mdi-flag text-red-600 />
       </template>
       <template v-else-if="item.revealed || isDev">
         <div v-if="item.mine" i-mdi-mine />
