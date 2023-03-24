@@ -12,7 +12,8 @@ const numberColors = [
   'text-pink-500',
   'text-blue-500',
   'text-orange-500',
-  'text-red-500',
+  'text-red-300',
+  'text-red-800',
 
 ]
 function getBlockClass(block: BlockState) {
