@@ -5,6 +5,7 @@ defineProps<{
   item: BlockState
 }>()
 const numberColors = [
+  '',
   'text-green-500',
   'text-yellow-500',
   'text-purple-500',
@@ -12,7 +13,6 @@ const numberColors = [
   'text-blue-500',
   'text-orange-500',
   'text-red-500',
-  'text-gray-500',
 
 ]
 function getBlockClass(block: BlockState) {
