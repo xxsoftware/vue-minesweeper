@@ -3,7 +3,7 @@ import { isDev, toggleDev } from '~/composables/storage'
 import { MinePlay } from '~/composables/MineLogic'
 const play = new MinePlay(10, 10)
 useStorage('minesweeper-state', play.state)
-const state = play.board
+const state = computed(() => play.board)
 </script>
 
 <template>
