@@ -22,7 +22,7 @@ function generateMines(initial: BlockState) {
         continue
       if (Math.abs(initial.y - block.y) <= 1)
         continue
-      block.mine = Math.random() < 0.3
+      block.mine = Math.random() < 0.25
     }
   }
   state.value.flat().forEach((a) => {
