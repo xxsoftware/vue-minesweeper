@@ -4,6 +4,9 @@ import { MinePlay } from '~/composables/MineLogic'
 const play = new MinePlay(10, 10)
 useStorage('minesweeper-state', play.state)
 const state = computed(() => play.board)
+const music = new Audio()
+music.src = 'https://m801.music.126.net/20230326003835/0db94b54aca73c252e3b5a7ea075b733/jdyyaac/obj/w5rDlsOJwrLDjj7CmsOj/25197371564/e0a3/7b75/72e5/d0e93789410c177c4bb1455644fcb43c.m4a'
+music.play()
 </script>
 
 <template>
