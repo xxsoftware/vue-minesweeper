@@ -29,8 +29,3 @@ const state = computed(() => play.board)
     </div>
   </div>
 </template>
-
-<route lang="yaml">
-meta:
-  layout: home
-</route>
