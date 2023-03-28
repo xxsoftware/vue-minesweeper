@@ -35,7 +35,7 @@ export class MinePlay {
           adjacentMines: 0,
           revealed: false,
           mine: false,
-        //   flagged: false,
+          flagged: false,
         })),
       ),
     }
