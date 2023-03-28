@@ -16,7 +16,7 @@ interface GameState {
 }
 export class MinePlay {
   state = ref() as Ref<GameState>
-  constructor(public width: number, public height: number) {
+  constructor(public width: number, public height: number, public mines: number) {
     this.reset()
   }
 
@@ -41,19 +41,30 @@ export class MinePlay {
     }
   }
 
+  randomInt(min: number, max: number) {
+    return Math.round(Math.random() * (max - min) + min)
+  }
+
   generateMines(state: BlockState[][], initial: BlockState) {
-    for (const row of state) {
-      for (const block of row) {
-        if (Math.abs(initial.x - block.x) <= 1)
-          continue
-        if (Math.abs(initial.y - block.y) <= 1)
-          continue
-        block.mine = Math.random() < 0.25
-      }
+    const placeRandom = () => {
+      const x = this.randomInt(0, this.width - 1)
+      const y = this.randomInt(0, this.height - 1)
+      const block = state[y][x]
+      if (Math.abs(initial.x - block.x) <= 1)
+        return false
+      if (Math.abs(initial.y - block.y) <= 1)
+        return false
+      if (block.mine)
+        return false
+      block.mine = true
+      return true
     }
-    state.flat().forEach((a) => {
-      a.flagged = false
+    Array.from({ length: this.mines }, () => null).forEach(() => {
+      let placed = false
+      while (!placed)
+        placed = placeRandom()
     })
+    this.updateNumbers()
   }
 
   updateNumbers() {
@@ -91,7 +102,6 @@ export class MinePlay {
 
   win() {
     alert('you win')
-    this.state.value.gameState = 'won'
   }
 
   onClick(block: BlockState) {
@@ -99,7 +109,7 @@ export class MinePlay {
       return
     if (!this.state.value.mineGenerated) {
       this.generateMines(this.board, block)
-      this.updateNumbers()
+
       this.state.value.mineGenerated = true
 
       block.revealed = true
@@ -107,13 +117,11 @@ export class MinePlay {
     }
     else {
       block.revealed = true
-      if (block.mine) {
+      if (block.mine)
         this.lose()
-      }
-      else {
-        this.checkGameState()
+
+      else
         this.expendZero(block)
-      }
     }
   }
 
@@ -125,11 +133,8 @@ export class MinePlay {
       return
 
     block.flagged = !block.flagged
-    if (block.flagged)
-      this.checkGameState()
   }
 
-  // watchEffect(checkGameState)
   checkGameState() {
     if (!this.state.value.mineGenerated)
       return
@@ -140,8 +145,10 @@ export class MinePlay {
   || (blocks.every(block =>
     block.mine === block.flagged,
   ))
-    )
+    ) {
+      this.state.value.gameState = 'won'
       this.win()
+    }
   }
 
   getSiblings(block: BlockState) {

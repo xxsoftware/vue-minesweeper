@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { isDev, toggleDev } from '~/composables/storage'
 import { MinePlay } from '~/composables/MineLogic'
-const play = new MinePlay(10, 10)
-useStorage('minesweeper-state', play.state)
+const play = new MinePlay(12, 12, 20)
 const state = computed(() => play.board)
+useStorage('minesweeper-state', play.state)
+watchEffect(() => play.checkGameState())
 </script>
 
 <template>
