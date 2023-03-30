@@ -22,7 +22,7 @@ watchEffect(() => play.checkGameState())
       </div>
     </div>
     <div w-full overflow-auto p5>
-      <div v-for="(row, y) in state" :key="y" flex items-center justify-center w-max>
+      <div v-for="(row, y) in state" :key="y" flex ma w-max>
         <MineBlock
           v-for="(item, x) in row"
           :key="x"
