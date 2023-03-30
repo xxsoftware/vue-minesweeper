@@ -17,6 +17,12 @@ function newGame(difficulty: 'easy' | 'medium' | 'hard') {
       break
   }
 }
+const mineRest = $computed(() => {
+  if (!play.state.value.mineGenerated)
+    return play.mines
+
+  return play.blocks.reduce((a, b) => a + (b.mine ? 1 : 0) - (b.flagged ? 1 : 0), 0)
+})
 const state = computed(() => play.board)
 useStorage('minesweeper-state', play.state)
 watchEffect(() => play.checkGameState())
@@ -50,6 +56,10 @@ watchEffect(() => play.checkGameState())
       <div>
         <div i-mdi-clock w-8 h-8 />
         {{ countdown }}
+      </div>
+      <div>
+        <div i-mdi-mine w-8 h-8 />
+        {{ mineRest }}
       </div>
     </div>
     <div w-full overflow-auto p5>

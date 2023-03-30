@@ -25,6 +25,10 @@ export class MinePlay {
     return this.state.value?.board
   }
 
+  get blocks() {
+    return this.state.value.board.flat() as BlockState[]
+  }
+
   reset(width = this.width, height = this.height, mines = this.mines) {
     this.width = width
     this.height = height
