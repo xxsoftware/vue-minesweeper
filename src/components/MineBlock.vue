@@ -33,8 +33,8 @@ function getBlockClass(block: BlockState) {
       flex
       justify-center
       items-center
-      min-w-10
-      min-h-10
+      min-w-8
+      min-h-8
       m="0.5"
       border
       hover:bg-gray
