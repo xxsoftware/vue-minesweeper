@@ -101,7 +101,7 @@ export class MinePlay {
   }
 
   win() {
-    alert('you win')
+    this.state.value.gameState = 'won'
   }
 
   onClick(block: BlockState) {
@@ -145,10 +145,8 @@ export class MinePlay {
   || (blocks.every(block =>
     block.mine === block.flagged,
   ))
-    ) {
-      this.state.value.gameState = 'won'
+    )
       this.win()
-    }
   }
 
   getSiblings(block: BlockState) {
