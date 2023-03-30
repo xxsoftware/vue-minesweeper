@@ -2,16 +2,18 @@
 import { isDev, toggleDev } from '~/composables/storage'
 import { MinePlay } from '~/composables/MineLogic'
 const play = new MinePlay(12, 12, 20)
+const now = $(useNow())
+const countdown = $computed(() => Math.round((+now - +play.state.value.startMS) / 1000))
 function newGame(difficulty: 'easy' | 'medium' | 'hard') {
   switch (difficulty) {
     case 'easy' :
-      play.reset(6, 6, 3)
+      play.reset(9, 9, 10)
       break
     case 'medium' :
-      play.reset(10, 10, 10)
+      play.reset(16, 16, 40)
       break
     case 'hard' :
-      play.reset(20, 20, 20)
+      play.reset(30, 16, 99)
       break
   }
 }
@@ -26,21 +28,28 @@ watchEffect(() => play.checkGameState())
       Minesweeper
     </div>
     <div flex="~ gap-1" justify-center p5>
-      <div @click="toggleDev()">
-        <div v-show="isDev" i-mdi-eye w-8 h-8 />
-        <div v-show="!isDev" i-mdi-eye-off-outline w-8 h-8 />
-      </div>
       <div btn @click="play.reset()">
         New Game
       </div>
       <div btn @click="newGame('easy')">
-        easy
+        Easy
       </div>
       <div btn @click="newGame('medium')">
-        medium
+        Medium
       </div>
       <div btn @click="newGame('hard')">
-        hard
+        Hard
+      </div>
+    </div>
+    <div flex="~ gap-30" justify-center>
+      <div @click="toggleDev()">
+        <div v-show="isDev" i-mdi-eye w-8 h-8 />
+        <div v-show="!isDev" i-mdi-eye-off-outline w-8 h-8 />
+      </div>
+
+      <div>
+        <div i-mdi-clock w-8 h-8 />
+        {{ countdown }}
       </div>
     </div>
     <div w-full overflow-auto p5>

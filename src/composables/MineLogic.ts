@@ -13,6 +13,7 @@ interface GameState {
   board: BlockState[][]
   mineGenerated: boolean
   gameState: 'play' | 'won' | 'lost'
+  startMS: number
 }
 export class MinePlay {
   state = ref() as Ref<GameState>
@@ -30,6 +31,7 @@ export class MinePlay {
     this.mines = mines
     this.state.value = {
       mineGenerated: false,
+      startMS: +Date.now(),
       gameState: 'play',
       board: Array.from({ length: this.height }, (_, y) =>
         Array.from({ length: this.width }, (_, x): BlockState => ({
@@ -53,9 +55,7 @@ export class MinePlay {
       const x = this.randomInt(0, this.width - 1)
       const y = this.randomInt(0, this.height - 1)
       const block = state[y][x]
-      if (Math.abs(initial.x - block.x) <= 1)
-        return false
-      if (Math.abs(initial.y - block.y) <= 1)
+      if (Math.abs(initial.x - block.x) <= 1 && Math.abs(initial.y - block.y) <= 1)
         return false
       if (block.mine)
         return false
