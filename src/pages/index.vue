@@ -2,6 +2,19 @@
 import { isDev, toggleDev } from '~/composables/storage'
 import { MinePlay } from '~/composables/MineLogic'
 const play = new MinePlay(12, 12, 20)
+function newGame(difficulty: 'easy' | 'medium' | 'hard') {
+  switch (difficulty) {
+    case 'easy' :
+      play.reset(6, 6, 3)
+      break
+    case 'medium' :
+      play.reset(10, 10, 10)
+      break
+    case 'hard' :
+      play.reset(20, 20, 20)
+      break
+  }
+}
 const state = computed(() => play.board)
 useStorage('minesweeper-state', play.state)
 watchEffect(() => play.checkGameState())
@@ -18,7 +31,16 @@ watchEffect(() => play.checkGameState())
         <div v-show="!isDev" i-mdi-eye-off-outline w-8 h-8 />
       </div>
       <div btn @click="play.reset()">
-        reset
+        New Game
+      </div>
+      <div btn @click="newGame('easy')">
+        easy
+      </div>
+      <div btn @click="newGame('medium')">
+        medium
+      </div>
+      <div btn @click="newGame('hard')">
+        hard
       </div>
     </div>
     <div w-full overflow-auto p5>
