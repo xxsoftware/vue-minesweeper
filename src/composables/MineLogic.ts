@@ -9,11 +9,13 @@ const directions = [
   [0, -1],
   [0, 1],
 ]
+type GameStatus = 'play' | 'won' | 'lost'
 interface GameState {
   board: BlockState[][]
   mineGenerated: boolean
-  gameState: 'play' | 'won' | 'lost'
+  status: GameStatus
   startMS: number
+  endMS: number
 }
 export class MinePlay {
   state = ref() as Ref<GameState>
@@ -36,7 +38,8 @@ export class MinePlay {
     this.state.value = {
       mineGenerated: false,
       startMS: +Date.now(),
-      gameState: 'play',
+      endMS: 0,
+      status: 'play',
       board: Array.from({ length: this.height }, (_, y) =>
         Array.from({ length: this.width }, (_, x): BlockState => ({
           x,
@@ -98,21 +101,26 @@ export class MinePlay {
     })
   }
 
+  onGameOver(status: GameStatus) {
+    this.state.value.status = status
+    this.state.value.endMS = +Date.now() - this.state.value.startMS
+  }
+
   lose() {
     this.board.flat().forEach((block) => {
       if (block.mine)
         block.revealed = true
     })
-    this.state.value.gameState = 'lost'
     alert('BOOOOOOOOOM!')
+    this.onGameOver('lost')
   }
 
   win() {
-    this.state.value.gameState = 'won'
+    this.onGameOver('won')
   }
 
   onClick(block: BlockState) {
-    if (this.state.value.gameState !== 'play')
+    if (this.state.value.status !== 'play')
       return
     if (!this.state.value.mineGenerated) {
       this.generateMines(this.board, block)
@@ -133,7 +141,7 @@ export class MinePlay {
   }
 
   onRightClick(block: BlockState) {
-    if (this.state.value.gameState !== 'play')
+    if (this.state.value.status !== 'play')
       return
 
     if (block.revealed)
@@ -154,6 +162,26 @@ export class MinePlay {
   ))
     )
       this.win()
+  }
+
+  autoExpand(block: BlockState) {
+    const siblings = this.getSiblings(block)
+    const flags = siblings.reduce((a, b) => a + (b.flagged ? 1 : 0), 0)
+    const notRevealed = siblings.reduce((a, b) => a + ((!b.revealed && !b.flagged) ? 1 : 0), 0)
+    if (flags === block.adjacentMines) {
+      siblings.forEach((i) => {
+        i.revealed = true
+        if (i.mine)
+          this.lose()
+      })
+    }
+    const missingFlags = block.adjacentMines - flags
+    if (notRevealed === missingFlags) {
+      siblings.forEach((i) => {
+        if (!i.revealed && !i.flagged)
+          i.flagged = true
+      })
+    }
   }
 
   getSiblings(block: BlockState) {

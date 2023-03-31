@@ -3,7 +3,7 @@ import { isDev, toggleDev } from '~/composables/storage'
 import { MinePlay } from '~/composables/MineLogic'
 const play = new MinePlay(12, 12, 20)
 const now = $(useNow())
-const countdown = $computed(() => Math.round((+now - +play.state.value.startMS) / 1000))
+const countdown = $computed(() => Math.round((+play.state.value.endMS || +now - +play.state.value.startMS) / 1000))
 function newGame(difficulty: 'easy' | 'medium' | 'hard') {
   switch (difficulty) {
     case 'easy' :
@@ -69,10 +69,11 @@ watchEffect(() => play.checkGameState())
           :key="x"
           :item="item"
           @click="play.onClick(item)"
+          @dblclick="play.autoExpand(item)"
           @contextmenu.prevent="play.onRightClick(item)"
         />
       </div>
     </div>
-    <Confetti :passed="play.state.value.gameState === 'won'" />
+    <Confetti :passed="play.state.value.status === 'won'" />
   </div>
 </template>
