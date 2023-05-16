@@ -6,6 +6,14 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+cursor: url(./pointer.cur),auto;
+}
+button ,div[btn]{
+    cursor: url(./link.cur),auto
+}
+
+button:active,div[btn]:active {
+    cursor: url(./person.cur),auto
 }
 
 html.dark {
