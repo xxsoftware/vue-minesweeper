@@ -13,7 +13,7 @@ function congrats() {
       '#8C4646',
     ],
     shapes: ['square'],
-    ticks: 500,
+    ticks: 800,
   } as confetti.Options
   confetti({
     ...defaults,
