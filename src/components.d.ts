@@ -10,6 +10,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Block: typeof import('./components/MineBlock.vue')['default']
+    Clock: typeof import('./components/clock.vue')['default']
     Confetti: typeof import('./components/Confetti.vue')['default']
     MineBlock: typeof import('./components/MineBlock.vue')['default']
     README: typeof import('./components/README.md')['default']

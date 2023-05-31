@@ -29,51 +29,50 @@ watchEffect(() => play.checkGameState())
 </script>
 
 <template>
+  <Clock />
   <div>
-    <div>
-      Minesweeper
-    </div>
-    <div flex="~ gap-1" justify-center p5>
-      <div btn @click="play.reset()">
-        New Game
-      </div>
-      <div btn @click="newGame('easy')">
-        Easy
-      </div>
-      <div btn @click="newGame('medium')">
-        Medium
-      </div>
-      <div btn @click="newGame('hard')">
-        Hard
-      </div>
-    </div>
-    <div flex="~ gap-30" justify-center>
-      <div @click="toggleDev()">
-        <div v-show="isDev" i-mdi-eye w-8 h-8 />
-        <div v-show="!isDev" i-mdi-eye-off-outline w-8 h-8 />
-      </div>
-
-      <div>
-        <div i-mdi-clock w-8 h-8 />
-        {{ countdown }}
-      </div>
-      <div>
-        <div i-mdi-mine w-8 h-8 />
-        {{ mineRest }}
-      </div>
-    </div>
-    <div w-full overflow-auto p5>
-      <div v-for="(row, y) in state" :key="y" flex ma w-max>
-        <MineBlock
-          v-for="(item, x) in row"
-          :key="x"
-          :item="item"
-          @click="play.onClick(item)"
-          @dblclick="play.autoExpand(item)"
-          @contextmenu.prevent="play.onRightClick(item)"
-        />
-      </div>
-    </div>
-    <Confetti :passed="play.state.value.status === 'won'" />
+    Minesweeper
   </div>
+  <div flex="~ gap-1" justify-center p5>
+    <div btn @click="play.reset()">
+      New Game
+    </div>
+    <div btn @click="newGame('easy')">
+      Easy
+    </div>
+    <div btn @click="newGame('medium')">
+      Medium
+    </div>
+    <div btn @click="newGame('hard')">
+      Hard
+    </div>
+  </div>
+  <div flex="~ gap-30" justify-center>
+    <div @click="toggleDev()">
+      <div v-show="isDev" i-mdi-eye w-8 h-8 />
+      <div v-show="!isDev" i-mdi-eye-off-outline w-8 h-8 />
+    </div>
+
+    <div>
+      <div i-mdi-clock w-8 h-8 />
+      {{ countdown }}
+    </div>
+    <div>
+      <div i-mdi-mine w-8 h-8 />
+      {{ mineRest }}
+    </div>
+  </div>
+  <div w-full overflow-auto p5>
+    <div v-for="(row, y) in state" :key="y" flex ma w-max>
+      <MineBlock
+        v-for="(item, x) in row"
+        :key="x"
+        :item="item"
+        @click="play.onClick(item)"
+        @dblclick="play.autoExpand(item)"
+        @contextmenu.prevent="play.onRightClick(item)"
+      />
+    </div>
+  </div>
+  <Confetti :passed="play.state.value.status === 'won'" />
 </template>

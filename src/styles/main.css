@@ -1,5 +1,10 @@
 @import './markdown.css';
 
+@font-face {
+  font-family: timeFont;
+  src: url("./DS-DIGIT.TTF");
+}
+
 html,
 body,
 #app {
