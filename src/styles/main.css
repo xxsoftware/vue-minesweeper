@@ -13,7 +13,7 @@ body,
   padding: 0;
 cursor: url(./pointer.cur),auto;
 }
-button ,div[btn]{
+button ,div[btn],a.icon-btn,a.block {
     cursor: url(./link.cur),auto
 }
 
