@@ -13,16 +13,17 @@ const emit = defineEmits(['start', 'replay'])
   <transition name="base">
     <!-- 遮罩层 -->
     <div v-if="isLive !== 2" class="controller-box">
-      <div v-if="isLive === 1" class="show-btns" @click="emit('start')">
+      <div v-if="isLive === 1" class="show-btn" @click="emit('start')">
         开始游戏
         <div class="options-tips">
           <p>手机玩家请点击屏幕进行操作;</p>
           <p>电脑玩家请通过按键 ↑ ↓ ← → 进行操作;</p>
         </div>
       </div>
-      <div v-if="isLive === 3" class="show-btns" @click="emit('replay')">
-        <p>gameover</p>
-        <p>replay</p>
+      <div v-if="isLive === 3" class="show-btn" @click="emit('replay')">
+        <div btn>
+          <p>replay</p>
+        </div>
       </div>
     </div>
   </transition>
@@ -41,7 +42,7 @@ const emit = defineEmits(['start', 'replay'])
   align-items: center;
   justify-content: center;
 
-  .show-btns {
+  .show-btn {
     display: flex;
     flex-direction: column;
     align-items: center;

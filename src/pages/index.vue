@@ -58,7 +58,7 @@ const gameList = [
   <ul ul mt-8 grid="~ cols-2 md:cols-3 " gap="x-15 y-4 sm:x-20 sm:y-6" p-10>
     <li v-for="(item, index) in gameList" :key="index" relative :class="item.status ? 'complete' : 'uncompleted'">
       <RouterLink :to="item.path" :data-example="item.name" class="gradient-border block cursor-pointer px-6 py-3 font-sans font-500 sm:text-xl">
-        <img :src="item.imgSrc" class="gameImg">
+        <img :src="item.imgSrc" class="gameImg" p-0 sm:p-5>
         <p>
           {{ item.name }}
         </p>
@@ -94,7 +94,6 @@ const gameList = [
 .gameImg{
     width: 150px;
     margin: 0 auto;
-    padding: 20px;
 }
 .dark .gradient-border {
   background-color: rgba(0, 0, 0, 0.3);
