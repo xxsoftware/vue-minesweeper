@@ -5,6 +5,7 @@ defineProps({
     default: 1,
   },
 })
+
 const emit = defineEmits(['changeDirection'])
 const isMobile = document.documentElement.clientWidth < 700
 </script>
@@ -16,19 +17,19 @@ const isMobile = document.documentElement.clientWidth < 700
   >
     <div
       class="up"
-      @click="emit(&quot;changeDirection&quot;, &quot;Up&quot;)"
+      @click="emit('changeDirection', 'Up')"
     />
     <div
       class="down"
-      @click="emit(&quot;changeDirection&quot;, &quot;Down&quot;)"
+      @click="emit('changeDirection', 'Down')"
     />
     <div
       class="left"
-      @click="emit(&quot;changeDirection&quot;, &quot;Left&quot;)"
+      @click="emit('changeDirection', 'Left')"
     />
     <div
       class="right"
-      @click="emit(&quot;changeDirection&quot;, &quot;Right&quot;)"
+      @click="emit('changeDirection', 'Right')"
     />
   </div>
 </template>

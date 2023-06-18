@@ -28,7 +28,6 @@ defineProps(['map'])
 <style lang='scss'>
 .game-box {
   opacity: 0.85;
-  border: 1px solid #fff;
   .row {
     display: flex;
   }
